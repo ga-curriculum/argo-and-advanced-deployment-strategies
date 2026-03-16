@@ -1,7 +1,7 @@
 # Instructor Guide: Argo and Advanced Deployment Strategies
 
 ## Module Overview
-This module transitions mid-career professionals from basic Kubernetes deployments to advanced, production-grade GitOps workflows. Students will implement deployment automation with ArgoCD and advanced rollout strategies. The primary focus is gaining hands-on experience managing versioned deployments, blue-green rollouts, and canary testing to safely release AI models. 
+This module transitions professionals from basic Kubernetes deployments to advanced, production-grade GitOps workflows. Students will implement deployment automation with ArgoCD and advanced rollout strategies. The primary focus is gaining hands-on experience managing versioned deployments, blue-green rollouts, and canary testing to safely release AI models. 
 
 ## Learning Objectives
 By the end of this session, students will be able to:
@@ -23,7 +23,7 @@ By the end of this session, students will be able to:
 
 ### 1. The GitOps Paradigm Shift
 * **The "Source of Truth" Analogy:** Emphasize that in GitOps, if someone manually uses `kubectl edit` to change a production model's memory limit, ArgoCD will immediately overwrite it back to what is in GitHub. Git is the absolute law.
-* **Mid-Career Context:** For professionals used to Jenkins pushing changes directly to servers, the "Pull" mechanism of ArgoCD running *inside* the cluster requires a mental shift. Emphasize the security benefits (CI server doesn't need cluster admin credentials).
+* **Career Context:** For professionals used to Jenkins pushing changes directly to servers, the "Pull" mechanism of ArgoCD running *inside* the cluster requires a mental shift. Emphasize the security benefits (CI server doesn't need cluster admin credentials).
 
 ### 2. Visualizing Rollout Strategies
 
