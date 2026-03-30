@@ -11,11 +11,13 @@ By the end of this session, students will be able to:
 
 ## Session Pacing Guide (120 Minutes total)
 
-| Duration   | Segment                               | Instructor Action                                                                                                                                                                   |
-|:-----------|:--------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **20 min** | **GitOps & ArgoCD Basics**            | Explain the "Pull" vs "Push" model. Show the ArgoCD UI and explain how it monitors a GitHub repository.                                                                             |
-| **40 min** | **Staged Rollouts (Live Demo)**       | Demonstrate a Canary deployment. Update a model version in Git, watch ArgoCD sync, and show traffic splitting using Argo Rollouts.                                                  |
-| **60 min** | **Lab: Canary Deployment Simulation** | Facilitate the lab where learners test a small rollout using ArgoCD and observe system responses. Guide them through deploying updates safely and implementing rollback strategies. |
+*Note: ArgoCD installation on a local Minikube cluster requires applying a large manifest and waiting for pods to start (5-10 minutes). Have students start their Minikube cluster and execute the ArgoCD installation command provided in their lab instructions at the very beginning of the session while you begin the lecture.*
+
+| Duration   | Segment                               | Instructor Action                                                                                                                                                                                                                                                                            |
+|:-----------|:--------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **20 min** | **GitOps & ArgoCD Basics**            | Explain the "Pull" vs "Push" model. Show the ArgoCD UI and explain how it monitors a GitHub repository.                                                                                                                                                                                      |
+| **40 min** | **Staged Rollouts (Live Demo)**       | Demonstrate a Canary deployment. Update a model version in Git, watch ArgoCD sync, and show traffic splitting using Argo Rollouts. *Use `pause: {duration: 30s}` in your YAML or the `kubectl argo rollouts promote` command to manually advance steps rather than waiting for long pauses.* |
+| **60 min** | **Lab: Canary Deployment Simulation** | Facilitate the lab where learners test a small rollout using ArgoCD and observe system responses. Guide them through deploying updates safely and implementing rollback strategies.                                                                                                          |
 
 ---
 
@@ -48,12 +50,13 @@ graph LR
 
 ## Common Student Issues & Solutions
 
-| Issue                                       | Potential Cause                                                                                         | Solution                                                                                                                                                 |
-|---------------------------------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **ArgoCD shows "Out of Sync" constantly**   | A Kubernetes admission controller (like a mutating webhook) is changing the YAML after Argo applies it. | Teach students how to use `ignoreDifferences` in the ArgoCD Application manifest to ignore specific fields.                                              |
-| **Canary Rollout is "Paused" indefinitely** | The Rollout YAML includes a `pause: {}` without a duration, waiting for manual promotion.               | Show students how to use the Argo Rollouts kubectl plugin to run `kubectl argo rollouts promote [name]`.                                                 |
-| **GitHub Repo Connection Failed**           | The repository is private and ArgoCD lacks the correct SSH key or Personal Access Token.                | Guide students through adding the repository credential in the ArgoCD UI under Settings > Repositories.                                                  |
-| **Rollback didn't revert the code**         | Students confused Kubernetes rollback with Git rollback.                                                | Clarify that while Argo Rollouts can abort a canary, the permanent fix requires a `git revert` in the repository to maintain the GitOps source of truth. |
+| Issue                                       | Potential Cause                                                                                         | Solution                                                                                                                                                                     |
+|---------------------------------------------|---------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **ArgoCD shows "Out of Sync" constantly**   | A Kubernetes admission controller (like a mutating webhook) is changing the YAML after Argo applies it. | Teach students how to use `ignoreDifferences` in the ArgoCD Application manifest to ignore specific fields.                                                                  |
+| **Canary Rollout is "Paused" indefinitely** | The Rollout YAML includes a `pause: {}` without a duration, waiting for manual promotion.               | Show students how to use the Argo Rollouts kubectl plugin to run `kubectl argo rollouts promote [name]`.                                                                     |
+| **GitHub Repo Connection Failed**           | The repository is private and ArgoCD lacks the correct SSH key or Personal Access Token.                | Guide students through adding the repository credential in the ArgoCD UI under Settings > Repositories.                                                                      |
+| **Rollback didn't revert the code**         | Students confused Kubernetes rollback with Git rollback.                                                | Clarify that while Argo Rollouts can abort a canary (runtime mechanism), the permanent fix requires a `git revert` in the repository to maintain the GitOps source of truth. |
+| **Weights have no effect on traffic**       | The Rollout YAML is missing `canaryService` and `stableService` definitions.                            | Remind students that Argo Rollouts requires service references to successfully split traffic.                                                                                |
 
 ---
 
@@ -68,7 +71,7 @@ graph LR
 ## Resources for the Instructor
 
 * **Reference:** 
-  * [ArgoCD Core Concepts](https://www.google.com/search?q=https://argo-cd.readthedocs.io/en/stable/core_concepts/)
+  *  [ArgoCD Core Concepts](https://www.google.com/search?q=https://argo-cd.readthedocs.io/en/stable/core_concepts/)
   * [Argo Rollouts - Canary Strategy](https://argoproj.github.io/argo-rollouts/features/canary/)
 * **AI Prompt Bank:**
   * *"Generate an ArgoCD Application YAML that points to a GitHub repository containing Kubernetes manifests."*
