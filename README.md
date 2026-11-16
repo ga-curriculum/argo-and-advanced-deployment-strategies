@@ -144,9 +144,9 @@ During the 10% Canary phase of a new recommendation engine, your Rollout YAML re
 
 > [!NOTE]
 >
-> [Lab: **Canary Deployment Simulation**](https://git.generalassemb.ly/ai-systems-engineering-reliability/lab-9-canary-deployment-simulation)
+> [Lab: **Canary Deployment Simulation**](https://github.com/ga-curriculum/lab-9-canary-deployment-simulation)
 > 
-> **Note**: Please refer to the dedicated [Lab Guide](https://git.generalassemb.ly/ai-systems-engineering-reliability/lab-9-canary-deployment-simulation)
+> **Note**: Please refer to the dedicated [Lab Guide](https://github.com/ga-curriculum/lab-9-canary-deployment-simulation)
  for full instructions, architectural constraints, and deliverables.
 ---
 
